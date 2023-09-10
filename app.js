@@ -11,7 +11,7 @@ fastify.get("/", function (request, reply) {
 fastify.post("/slack-message", function (request, reply) {
   console.log(request.body);
   reply.send({
-    token: "5rAY1THAlPm3Mv9ptltZE9OT",
+    token: "I3dPm8QVajqJad8iMcyqDRvq",
     challenge: "3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P",
     type: "url_verification",
   });
