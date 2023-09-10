@@ -40,7 +40,7 @@ fastify.post("/slack-message", function (request, reply) {
 fastify.post("/register", (req, res) => {
   const dataFromRequestBody = req.body;
     console.log("request.register 🟢🔴🟢🔴");
-    console.log(request.body);
+    console.log(res.body);
     console.log("request.register 🟢🔴🟢🔴");
   res.send(dataFromRequestBody);
 });
