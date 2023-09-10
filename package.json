@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/AZZIE2000/slack-bot-test#readme",
   "dependencies": {
+    "@fastify/cors": "^8.3.0",
     "fastify": "^4.22.2"
   },
   "devDependencies": {
