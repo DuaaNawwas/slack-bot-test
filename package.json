@@ -1,13 +1,10 @@
 {
   "name": "slack-bot-test",
   "version": "1.0.0",
-  "description": "",
-  "main": "build/index.js",
+  "description": "slack webhook test",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p tsconfig.json",
-    "start": "node ./build/index.js",
-    "dev": "nodemon src/index.ts"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +22,9 @@
     "fastify": "^4.22.2"
   },
   "devDependencies": {
-    "@types/node": "^20.6.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "@types/node": "^20.6.0"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
