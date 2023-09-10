@@ -15,10 +15,10 @@ fastify.post("/slack-message", function (request, reply) {
   reply.send(request.body);
 });
 fastify.get("/slack-opt", function (request, reply) {
-  console.log("slack-opt");
-  console.log(request.body);
-  console.log("slack-opt");
-  reply.send(request.body);
+  console.log("slack-opt💜💜💜");
+  console.log(request.query);
+  console.log("slack-opt💜💜💜");
+  reply.send(request.query);
 });
 
 fastify.listen({ host: host, port: port }, function (err, address) {
