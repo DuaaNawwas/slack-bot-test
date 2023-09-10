@@ -1,17 +1,17 @@
-import fastify from "fastify";
+import Fastify from "fastify";
 import cors from "@fastify/cors";
-const server = fastify();
-
-server.get("/", async (request, reply) => {
-  return reply.code(200).send("<h1>hi</h1>");
-});
-server.post("/a", async (request, reply) => {
-  return reply.code(200).send({ message: "<h1>hi</h1>" });
-});
-server.register(cors, {
+const app = Fastify();
+app.register(cors, {
   origin: "*",
 });
-server.listen({ port: 8080 }, (err, address) => {
+
+app.get("/", async (request, reply) => {
+  return reply.code(200).send("<h1>hi</h1>");
+});
+app.post("/a", async (request, reply) => {
+  return reply.code(200).send({ message: "<h1>hi</h1>" });
+});
+app.listen({ port: 8080 }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
