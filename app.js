@@ -42,7 +42,10 @@ fastify.post("/register", (req, res) => {
     console.log("request.register 🟢🔴🟢🔴");
     console.log(req.body);
     console.log("request.register 🟢🔴🟢🔴");
-  res.send(dataFromRequestBody);
+    console.log("request.register 🟢🔴🟢🔴");
+    console.log(JSON.stringify(req));
+    console.log("request.register 🟢🔴🟢🔴");
+    res.send(dataFromRequestBody);
 });
 
 fastify.get("/slack-opt", function (request, reply) {
