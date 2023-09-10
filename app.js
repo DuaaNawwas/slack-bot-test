@@ -8,8 +8,9 @@ const fastify = require("fastify")({
 fastify.get("/", function (request, reply) {
   reply.type("text/html").send(html);
 });
-fastify.get("/a", function (request, reply) {
-  reply.send({ hello: "world" });
+fastify.post("/slack-message", function (request, reply) {
+  console.log(request.body);
+  reply.send(request.body);
 });
 
 fastify.listen({ host: host, port: port }, function (err, address) {
