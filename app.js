@@ -9,7 +9,9 @@ fastify.get("/", function (request, reply) {
   reply.type("text/html").send(html);
 });
 fastify.post("/slack-message", function (request, reply) {
+  console.log("request.body");
   console.log(request.body);
+  console.log("request.body");
   reply.send(request.body);
 });
 
