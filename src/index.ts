@@ -3,7 +3,7 @@ import fastify from "fastify";
 const server = fastify();
 
 server.get("/", async (request, reply) => {
-  return reply.code(200).send({ messgae: "its working" });
+  return reply.code(200).send("<h1>hi</h1>");
 });
 
 server.listen({ port: 8080 }, (err, address) => {
