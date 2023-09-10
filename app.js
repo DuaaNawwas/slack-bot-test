@@ -10,7 +10,11 @@ fastify.get("/", function (request, reply) {
 });
 fastify.post("/slack-message", function (request, reply) {
   console.log(request.body);
-  reply.send(request.body);
+  reply.send({
+    token: "5rAY1THAlPm3Mv9ptltZE9OT",
+    challenge: "3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P",
+    type: "url_verification",
+  });
 });
 
 fastify.listen({ host: host, port: port }, function (err, address) {
