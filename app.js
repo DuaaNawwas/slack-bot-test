@@ -5,21 +5,46 @@ const fastify = require("fastify")({
   logger: true,
 });
 
+fastify.register(require("@fastify/formbody"));
+// Parse JSON request bodies
+fastify.addContentTypeParser('application/json', { parseAs: 'buffer' }, (req, body, done) => {
+  if (body && body.length) {
+    try {
+      const parsed = JSON.parse(body);
+      done(null, parsed);
+    } catch (error) {
+      done(error);
+    }
+  } else {
+    done(new Error('Invalid JSON body'));
+  }
+});
 fastify.get("/", function (request, reply) {
   reply.type("text/html").send(html);
 });
+// fastify.register(bodyParser);
+
 fastify.post("/slack-message", function (request, reply) {
   console.log("request.body");
   console.log(request.body);
   console.log("request.body");
   reply.send(request.body);
 });
-fastify.post("/register", function (request, reply) {
-  console.log("request.register 🟢🔴🟢🔴");
-  console.log(request.body);
-  console.log("request.register 🟢🔴🟢🔴");
-  reply.send(request.body);
+
+// fastify.post("/register", function (request, reply) {
+//   console.log("request.register 🟢🔴🟢🔴");
+//   console.log(request.body);
+//   console.log("request.register 🟢🔴🟢🔴");
+//   reply.status(200).send("OK");
+// });
+fastify.post("/register", (req, res) => {
+  const dataFromRequestBody = req.body;
+    console.log("request.register 🟢🔴🟢🔴");
+    console.log(request.body);
+    console.log("request.register 🟢🔴🟢🔴");
+  res.send(dataFromRequestBody);
 });
+
 fastify.get("/slack-opt", function (request, reply) {
   console.log("slack-opt💜💜💜");
   console.log(request.query);
