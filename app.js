@@ -26,7 +26,6 @@ fastify.addContentTypeParser(
 fastify.get("/", function (request, reply) {
   reply.type("text/html").send(html);
 });
-// fastify.register(bodyParser);
 
 fastify.post("/slack-message", function (request, reply) {
   console.log("request.body");
@@ -34,6 +33,8 @@ fastify.post("/slack-message", function (request, reply) {
   console.log("request.body");
   reply.send(request.body);
 });
+// me A05RS5JS812
+// d
 
 // fastify.post("/register", function (request, reply) {
 //   console.log("request.register 🟢🔴🟢🔴");
@@ -49,10 +50,29 @@ fastify.post("/register", (req, res) => {
   res.send(dataFromRequestBody);
 });
 
-fastify.get("/slack-opt", function (request, reply) {
+fastify.get("/slack-opt", async function (request, reply) {
   console.log("slack-opt💜💜💜");
   console.log(request.query);
-  console.log("slack-opt💜💜💜");
+  const formData = new FormData();
+  formData.append("code", request.query.code);
+  formData.append("client_id", "5876182247284.5876188892036");
+  formData.append("client_secret", "5cafe95a65c4ca523779eaf62ad1fefa");
+
+  const response = await fetch("https://slack.com/api/oauth.v2.access", {
+    method: "POST",
+    body: formData,
+  });
+  console.log("🚀🚀🚀");
+  console.log(response);
+  console.log("🚀🚀🚀");
+  const data = await response.json().data;
+  const resToSlack = await fetch(data.body.incoming_webhook.url, {
+    method: "POST",
+    body: {
+      text: JSON.stringify(data),
+    },
+  });
+  console.log("data");
   reply.send(request.query);
 });
 
@@ -121,3 +141,68 @@ const html = `
   </body>
 </html>
 `;
+
+/**
+ * DOCUMENTATION
+ * in OAuth & Permissions > Redirect URLs > after install they send a code to the redirect url
+ * use the code to call
+ * curl -F code=5876182247284.5873760791957.41e093ae9f64bb8b6b7970ce9cbe9f2fe18d6f902ae196b4b2c386ec0646617a -F client_id=5876182247284.5876188892036 -F client_secret=5cafe95a65c4ca523779eaf62ad1fefa https://slack.com/api/oauth.v2.access
+ *
+ * @returns
+ * {
+  ok: true,
+  app_id: "A05RS5JS812",
+  authed_user: { id: "U05RH2V94J2" },
+  scope: "app_mentions:read,commands,incoming-webhook",
+  token_type: "bot",
+  access_token: "xoxb-5876182247284-5876196949668-E77JXbTSWMALNWkCD2bscfzm",
+  bot_user_id: "U05RS5STXKN",
+  team: { id: "T05RS5C798C", name: "azzam-i2i" },
+  enterprise: null,
+  is_enterprise_install: false,
+  incoming_webhook: {
+    channel: "#general", << this is the channel name **Optional save**
+    channel_id: "C05S2AXE733", save this to know where to send the message and register it with the bot_id
+    configuration_url: "https://azzam-i2i.slack.com/services/B05RK6ASUJ2",
+    url: "https://hooks.slack.com/services/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", << this is the webhook url use this 
+  },
+}
+Q : save with the team id or the channel id ?
+ */
+
+const ss = {
+  ok: true,
+  app_id: "A05RS5JS812",
+  authed_user: { id: "U05RH2V94J2" },
+  scope: "app_mentions:read,commands,incoming-webhook,chat:write",
+  token_type: "bot",
+  access_token: "xoxb-5876182247284-5876196949668-T8LrIPA9HwyTt4bwaC0tgG8D",
+  bot_user_id: "U05RS5STXKN",
+  team: { id: "T05RS5C798C", name: "azzam-i2i" },
+  enterprise: null,
+  is_enterprise_install: false,
+  incoming_webhook: {
+    channel: "#general",
+    channel_id: "C05S2AXE733",
+    configuration_url: "https://azzam-i2i.slack.com/services/B05RSGVHYRZ",
+    url: "https://hooks.slack.com/services/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",
+  },
+};
+const aa = {
+  ok: true,
+  app_id: "A05RS5JS812",
+  authed_user: { id: "U05RH2V94J2" },
+  scope: "app_mentions:read,commands,incoming-webhook,chat:write",
+  token_type: "bot",
+  access_token: "xoxb-5876182247284-5876196949668-T8LrIPA9HwyTt4bwaC0tgG8D",
+  bot_user_id: "U05RS5STXKN",
+  team: { id: "T05RS5C798C", name: "azzam-i2i" },
+  enterprise: null,
+  is_enterprise_install: false,
+  incoming_webhook: {
+    channel: "#i2i-bot",
+    channel_id: "C05RPJR95A7",
+    configuration_url: "https://azzam-i2i.slack.com/services/B05RPNEGJPP",
+    url: "https://hooks.slack.com/services/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",
+  },
+};
