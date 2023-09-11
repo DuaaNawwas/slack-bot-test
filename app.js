@@ -55,18 +55,25 @@ fastify.get("/slack-opt", async function (request, reply) {
   console.log(request.query);
   const formData = new FormData();
   formData.append("code", request.query.code);
-  formData.append("client_id", "5876182247284.5876188892036");
+  formData.append("client_id", "5876182247284.5876188892036"); // from env & slack App Credentials
   formData.append("client_secret", "5cafe95a65c4ca523779eaf62ad1fefa");
-
+  console.log("formData 🚀🚀🚀");
+  console.log(formData);
+  console.log("formData 🚀🚀🚀");
   const response = await fetch("https://slack.com/api/oauth.v2.access", {
     method: "POST",
     body: formData,
   });
   console.log("🚀🚀🚀");
   console.log(response);
+  console.log("🚀---🚀--🚀");
+  console.log(JSON.stringify(response));
   console.log("🚀🚀🚀");
-  const data = await response.json().data;
-  const resToSlack = await fetch(data.body.incoming_webhook.url, {
+  const data = await response.json();
+  console.log("dd🚀🚀🚀dd");
+  console.log(data);
+  console.log("dd🚀🚀🚀dd");
+  const resToSlack = await fetch(data.data.incoming_webhook.url, {
     method: "POST",
     body: {
       text: JSON.stringify(data),
