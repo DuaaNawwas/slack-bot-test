@@ -90,7 +90,7 @@ fastify.get("/slack-opt", async function (request, reply) {
   console.log("formData 🚀🚀🚀");
   console.log(formData);
   console.log("formData 🚀🚀🚀");
-  const response = await fetch("https://slack.com/api/oauth.v2.access", {
+  const response = await fetch("https://slack.com/api/oauth.v2.access", { // this api uses application/x-www-form-urlencoded
     method: "POST",
     body: formData,
   });
