@@ -27,6 +27,17 @@ fastify.get("/", function (request, reply) {
   reply.type("text/html").send(html);
 });
 
+/**
+ * @description
+ *  this will be called when a user mentions the bot in a channel
+ * you will receive the message in the request body with the channel id
+ * @steps
+ * 1. get the channel id from the request body
+ * 2. look for the record in the lookup database that has a channel === req.channel
+ * make the conversation_id using the bot_id&channel_id&user_id
+ * 3. send the message with the conversation_id and the bot_id to the mock-engines or handle it however you want
+ * 4. send a message using this api https://api.slack.com/methods/chat.postMessage and user the token in the heade and in the body use {channel: the saved channel id, [smth]: https://app.slack.com/block-kit-builder  use this to build the message}
+ */
 fastify.post("/slack-message", function (request, reply) {
   console.log("request.body");
   console.log(request.body);
@@ -36,12 +47,22 @@ fastify.post("/slack-message", function (request, reply) {
 // me A05RS5JS812
 // d
 
-// fastify.post("/register", function (request, reply) {
-//   console.log("request.register 🟢🔴🟢🔴");
-//   console.log(request.body);
-//   console.log("request.register 🟢🔴🟢🔴");
-//   reply.status(200).send("OK");
-// });
+
+/** 
+ * @description
+ * this will be called when a user uses the command /register in slack after installing the app and inviting the bot to the channel
+ * ------
+ * @steps
+ * 1. the user will get the bot_id jwt token from the bot builder page 
+ * 2. you will decode the jwt token to get the bot_id
+ * 3. receive the channel id from the request body
+ * 4. look for the record in the lookup database that has a channel === req.channel
+ * 5. if found then update the record with the bot_id
+ * 6. send a message using this api https://api.slack.com/methods/chat.postMessage and user the token in the heade and in the body use {channel: the saved channel id, [smth]: https://app.slack.com/block-kit-builder  use this to build the message}
+ * 
+ * @NOTE 
+ * this api with receive application/x-www-form-urlencoded
+*/
 fastify.post("/register", (req, res) => {
   const dataFromRequestBody = req.body;
   console.log("request.register 🟢🔴🟢🔴");
@@ -50,6 +71,17 @@ fastify.post("/register", (req, res) => {
   res.send(dataFromRequestBody);
 });
 
+/**
+ * @description
+ * this will be called when a new user install the app
+ * and this will be called only once on initial install first thing
+ * ------
+ * @steps
+ * 1. get the code from the request query request.query.code
+ * 2. call slack api to get the access token
+ * 3. save the access token and the channel id in the lookup database
+ * 4. user the url incoming_webhook.url to send the welcome message and the instreuctions
+ */
 fastify.get("/slack-opt", async function (request, reply) {
   console.log("slack-opt💜💜💜");
   console.log(request.query);
