@@ -75,9 +75,12 @@ fastify.get("/slack-opt", async function (request, reply) {
   console.log("dd🚀🚀🚀dd");
   const resToSlack = await fetch(data.incoming_webhook.url, {
     method: "POST",
-    body: {
-      text: data.access_token,
+    headers: {
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      text: data.access_token,
+    }),
   });
   console.log("resToSlack");
   console.log(resToSlack);
