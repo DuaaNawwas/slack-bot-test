@@ -40,7 +40,7 @@ fastify.get("/", function (request, reply) {
 fastify.post("/slack-message", function (request, reply) {
   console.log("request.body");
   console.log(request.body);
-  console.log("request.body");
+  console.log("request.body ddddddddddddddddddddddddddddddddddddddddddddddddddd");
   reply.send(request.body);
 });
 
